@@ -1,0 +1,11 @@
+server/.env
+client/.env
+**/.env
+
+node_modules/
+**/node_modules/
+
+**/build/
+**/dist/
+
+client/.vite
