@@ -19,6 +19,10 @@ export default [
     },
     rules: {
       "prettier/prettier": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_" },
+      ],
     },
   },
 

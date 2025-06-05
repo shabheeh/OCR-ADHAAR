@@ -1,6 +1,4 @@
 import express from "express";
-import dotenv from "dotenv";
-dotenv.config();
 import adhaarRouter from "./interfaces/routes/adhaar.routes";
 import { httpLogger } from "./interfaces/middlewares/logger.middleware";
 import connectDB from "./configs/db.config";
@@ -25,4 +23,4 @@ connectDB();
 
 app.use(errorHandler);
 
-app.use("/api/adhaars", adhaarRouter);
+app.use("/api", adhaarRouter);

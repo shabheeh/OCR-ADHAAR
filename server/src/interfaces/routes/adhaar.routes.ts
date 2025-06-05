@@ -11,12 +11,14 @@ const upload = multer({ storage: multer.memoryStorage() });
 const controller = container.get<IAdhaarController>(TYPES.AdhaarController);
 
 router.post(
-  "/adhaar",
+  "/adhaars",
   upload.fields([
     { name: "front", maxCount: 1 },
     { name: "back", maxCount: 1 },
   ]),
   controller.processAdhaar
 );
+
+router.get("/adhaars/:systemId", controller.getPreviousRecords);
 
 export default router;

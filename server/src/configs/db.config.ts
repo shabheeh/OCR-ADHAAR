@@ -1,7 +1,11 @@
 import mongoose, { ConnectOptions } from "mongoose";
 import { logger } from "../utils/logger.util";
 
+import dotenv from "dotenv";
+dotenv.config();
 const MONGO_URI: string | undefined = process.env.MONGODB_URI;
+
+console.log(MONGO_URI);
 
 const connectDB = async (): Promise<void> => {
   try {

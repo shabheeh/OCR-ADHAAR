@@ -16,4 +16,9 @@ export class AdhaarRepository implements IAdhaarRepository {
     const doc = new this.model(data);
     return await doc.save();
   }
+
+  async findAllBySystemId(systemId: string): Promise<IAdhaar[]> {
+    const docs = await this.model.find({ systemId });
+    return docs;
+  }
 }
