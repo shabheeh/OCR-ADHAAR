@@ -6,6 +6,7 @@ import { validateFile } from "../helpers/validateFile";
 import { getSystemId, setSystemId } from "../helpers/uuid";
 import type { IAdhaar } from "../types/IAdhaar";
 import { toast } from "sonner";
+import { formatDate } from "../helpers/fomateDate";
 
 const Home: React.FC = () => {
   const [frontFile, setFrontFile] = useState<File | null>(null);
@@ -16,10 +17,17 @@ const Home: React.FC = () => {
     null
   );
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [copiedItem, setCopiedItem] = useState<string | null>(null);
   const [frontError, setFrontError] = useState<string | null>(null);
   const [backError, setBackError] = useState<string | null>(null);
 
   const [previousData, setPrviousData] = useState<IAdhaar[]>([]);
+
+  useEffect(() => {
+    if (showHistory) {
+      getHistory();
+    }
+  }, [showHistory]);
 
   const getHistory = async () => {
     const systemId = getSystemId();
@@ -88,7 +96,11 @@ const Home: React.FC = () => {
     try {
       await navigator.clipboard.writeText(text);
       setCopiedField(field);
-      setTimeout(() => setCopiedField(null), 2000);
+      setTimeout(() => {
+        setCopiedField(null)
+        setCopiedItem(null)
+      }
+        , 2000);
     } catch (err) {
       console.error("Failed to copy text: ", err);
     }
@@ -100,16 +112,10 @@ Aadhaar Number: ${data.uid}
 Date of Birth: ${data.DOB}
 Address: ${data.address}
 Gender: ${data.gender}
-Parsed At: ${data.createdAt}`;
+Parsed At: ${formatDate(data.createdAt)}`;
 
+    setCopiedItem(data._id)
     await copyToClipboard(allData, "all");
-  };
-
-  const handleShowHistory = () => {
-    setShowHistory(!showHistory);
-    if (showHistory) {
-      getHistory();
-    }
   };
 
   return (
@@ -133,7 +139,7 @@ Parsed At: ${data.createdAt}`;
                 </div>
               </div>
               <button
-                onClick={() => handleShowHistory()}
+                onClick={() => setShowHistory(!showHistory)}
                 className="flex items-center space-x-2 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 <History className="w-5 h-5" />
@@ -200,7 +206,7 @@ Parsed At: ${data.createdAt}`;
                         className="text-gray-600 hover:text-gray-800 transition-colors"
                         title="Copy all data"
                       >
-                        {copiedField === "all" ? (
+                        {copiedField === "all" && copiedItem === currentParsedData._id ? (
                           <CheckCircle className="w-5 h-5 text-green-600" />
                         ) : (
                           <Copy className="w-5 h-5" />
@@ -318,7 +324,7 @@ Parsed At: ${data.createdAt}`;
                       </div>
 
                       <div className="text-xs text-gray-500 pt-2">
-                        Parsed at: {currentParsedData.createdAt}
+                        Parsed at: {formatDate(currentParsedData.createdAt)}
                       </div>
                     </div>
                   </div>
@@ -350,10 +356,10 @@ Parsed At: ${data.createdAt}`;
                         </h4>
                         <button
                           onClick={() => copyAllData(data)}
-                          className="text-blue-600 hover:text-blue-800 transition-colors"
+                          className="text-gray-600 hover:text-black transition-colors"
                           title="Copy all data"
                         >
-                          {copiedField === "all" ? (
+                          {copiedField === "all" && copiedItem === data._id ? (
                             <CheckCircle className="w-4 h-4 text-green-600" />
                           ) : (
                             <Copy className="w-4 h-4" />
@@ -363,7 +369,9 @@ Parsed At: ${data.createdAt}`;
                       <p className="text-sm text-gray-600 mb-1">
                         Aadhaar: {data.uid}
                       </p>
-                      <p className="text-xs text-gray-500">{data.createdAt}</p>
+                      <p className="text-xs text-gray-500">
+                        {formatDate(data.createdAt)}
+                      </p>
                       <button
                         onClick={() => setCurrentParsedData(data)}
                         className="text-xs text-blue-600 hover:text-blue-800 mt-2 underline"
@@ -373,10 +381,8 @@ Parsed At: ${data.createdAt}`;
                     </div>
                   ))}
                   {previousData.length === 0 ? (
-                    <p>
-                      No prevoius history
-                    </p>
-                  ) : null }
+                    <p>No prevoius history</p>
+                  ) : null}
                 </div>
               </div>
             )}
