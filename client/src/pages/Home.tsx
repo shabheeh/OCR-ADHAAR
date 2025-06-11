@@ -122,7 +122,6 @@ Parsed At: ${formatDate(data.createdAt)}`;
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6">
       <div className="max-w-full mx-auto">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          {/* Header */}
           <div className="bg-black px-8 py-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
@@ -149,7 +148,6 @@ Parsed At: ${formatDate(data.createdAt)}`;
           </div>
 
           <div className="flex flex-col lg:flex-row">
-            {/* Left Panel - Upload Section */}
             <div
               className={`${
                 showHistory ? "lg:w-1/3" : "lg:w-1/2"
@@ -190,7 +188,7 @@ Parsed At: ${formatDate(data.createdAt)}`;
               } p-8 bg-gradient-to-br from-gray-50 to-slate-100`}
             >
               <h2 className="text-lg font-semibold text-gray-800 mb-4">
-                API Response
+                Adhaar Details
               </h2>
 
               <div className="bg-white rounded-xl border border-gray-200 p-6 min-h-[300px] shadow-sm">
@@ -332,7 +330,7 @@ Parsed At: ${formatDate(data.createdAt)}`;
                   <div className="flex flex-col items-center justify-center h-full text-gray-400">
                     <FileText className="w-12 h-12 mb-3" />
                     <p className="text-center">
-                      Start Performing OCR by inputting your Aadhaar front and
+                      Please upload by inputting your Aadhaar front and
                       back
                     </p>
                   </div>

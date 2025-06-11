@@ -5,8 +5,6 @@ import dotenv from "dotenv";
 dotenv.config();
 const MONGO_URI: string | undefined = process.env.MONGODB_URI;
 
-console.log(MONGO_URI);
-
 const connectDB = async (): Promise<void> => {
   try {
     await mongoose.connect(MONGO_URI!, {} as ConnectOptions);
