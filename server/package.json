@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "ocr-adhaar backend",
   "main": "server.ts",
-  "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
