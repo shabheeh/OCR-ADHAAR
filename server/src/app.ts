@@ -4,6 +4,7 @@ import { httpLogger } from "./middlewares/logger.middleware";
 import connectDB from "./configs/db.config";
 import cors from "cors";
 import { errorHandler } from "./middlewares/error.middleware";
+import helmet from "helmet";
 
 export const app = express();
 
@@ -11,6 +12,12 @@ app.use(express.json({ limit: "5mb" }));
 app.use(httpLogger);
 
 const CLIENT_URL = process.env.CLIENT_URL;
+
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  })
+);
 
 app.use(
   cors({
