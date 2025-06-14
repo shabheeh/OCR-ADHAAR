@@ -24,6 +24,6 @@ app.options("*", cors({ origin: CLIENT_URL, credentials: true }));
 
 connectDB();
 
-app.use(errorHandler);
-
 app.use("/api", adhaarRouter);
+
+app.use(errorHandler);
