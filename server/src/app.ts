@@ -7,7 +7,7 @@ import { errorHandler } from "./middlewares/error.middleware";
 
 export const app = express();
 
-app.use(express.json());
+app.use(express.json({ limit: "5mb" }));
 app.use(httpLogger);
 
 const CLIENT_URL = process.env.CLIENT_URL;
@@ -20,6 +20,7 @@ app.use(
     methods: ["GET", "POST"],
   })
 );
+app.options("*", cors({ origin: CLIENT_URL, credentials: true }));
 
 connectDB();
 
