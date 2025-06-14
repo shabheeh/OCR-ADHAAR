@@ -17,10 +17,11 @@ app.use(
     origin: CLIENT_URL,
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "OPTIONS"],
   })
 );
-// app.options("/*", cors({ origin: CLIENT_URL, credentials: true }));
+
+// app.options("*", cors({ origin: CLIENT_URL, credentials: true }));
 
 connectDB();
 
