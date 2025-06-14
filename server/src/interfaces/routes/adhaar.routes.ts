@@ -2,11 +2,9 @@ import { Router } from "express";
 import { container } from "../../configs/inversify.config";
 import { IAdhaarController } from "../controllers/adhaar.controller.interface";
 import TYPES from "../../shared/types/inversifyjs.types";
-import multer from "multer";
+import upload from "../../configs/multer.config";
 
 const router = Router();
-
-const upload = multer({ storage: multer.memoryStorage() });
 
 const controller = container.get<IAdhaarController>(TYPES.AdhaarController);
 
