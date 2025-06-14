@@ -6,6 +6,7 @@ import { IAdhaarRepository } from "../repositories/adhaar.repository.interface";
 import Tesseract from "tesseract.js";
 import { extractAadhaarData } from "../utils/textExtractor.util";
 import { AppError } from "../shared/errors/http-error";
+import sharp from "sharp";
 
 @injectable()
 export class AdhaarService implements IAdhaarService {
@@ -19,24 +20,27 @@ export class AdhaarService implements IAdhaarService {
     systemId: string
   ): Promise<IAdhaar> => {
     try {
-      const worker = await Tesseract.createWorker("eng", 1, {
-        logger: (m) => console.log(m),
-      });
-
-      await worker.setParameters({
-        tessedit_pageseg_mode: Tesseract.PSM.SINGLE_BLOCK,
-        tessedit_ocr_engine_mode: Tesseract.OEM.LSTM_ONLY, 
-      });
-
-      console.log("Starting OCR processing...");
-      const startTime = Date.now();
-
-      const [front, back] = await Promise.all([
-        worker.recognize(frontFile.buffer),
-        worker.recognize(backFile.buffer),
+      const [frontProcessed, backProcessed] = await Promise.all([
+        sharp(frontFile.buffer)
+          .resize(1200, null, { withoutEnlargement: true })
+          .greyscale()
+          .normalize()
+          .png()
+          .toBuffer(),
+        sharp(backFile.buffer)
+          .resize(1200, null, { withoutEnlargement: true })
+          .greyscale()
+          .normalize()
+          .png()
+          .toBuffer(),
       ]);
 
-      console.log(`OCR completed in ${Date.now() - startTime}ms`);
+      const worker = await Tesseract.createWorker("eng");
+
+      const [front, back] = await Promise.all([
+        worker.recognize(frontProcessed),
+        worker.recognize(backProcessed),
+      ]);
 
       await worker.terminate();
 
