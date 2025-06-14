@@ -9,3 +9,9 @@ node_modules/
 **/dist/
 
 client/.vite
+
+/client/eslint.config.js
+/server/eslint.config.mjs
+
+/server/.prettierignore
+/server/.prettierrc
