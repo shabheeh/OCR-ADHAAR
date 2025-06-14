@@ -16,7 +16,16 @@ app.use(
   cors({
     origin: CLIENT_URL,
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: [
+      "Origin",
+      "X-Requested-With",
+      "Content-Type",
+      "Accept",
+      "Authorization",
+      "Cache-Control",
+      "X-File-Name",
+    ],
+    optionsSuccessStatus: 200,
     methods: ["GET", "POST", "OPTIONS"],
   })
 );
