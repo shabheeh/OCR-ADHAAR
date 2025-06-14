@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { AppError } from "../../shared/errors/http-error";
+import { AppError } from "../shared/errors/http-error";
 
 interface ErrorResponse {
   status: string;

@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { container } from "../../configs/inversify.config";
+import { container } from "../configs/inversify.config";
 import { IAdhaarController } from "../controllers/adhaar.controller.interface";
-import TYPES from "../../shared/types/inversifyjs.types";
-import upload from "../../configs/multer.config";
+import TYPES from "../shared/types/inversifyjs.types";
+import upload from "../configs/multer.config";
 
 const router = Router();
 

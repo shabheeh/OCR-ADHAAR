@@ -1,11 +1,11 @@
 import { inject, injectable } from "inversify";
-import TYPES from "../../shared/types/inversifyjs.types";
+import TYPES from "../shared/types/inversifyjs.types";
 import { IAdhaarService } from "./adhaar.service.interface";
-import { IAdhaar } from "../domain/adhaar.entity.interface";
-import { IAdhaarRepository } from "../infrastructure/adhaar.repository.interface";
+import { IAdhaar } from "../models/adhaar/adhaar.entity.interface";
+import { IAdhaarRepository } from "../repositories/adhaar.repository.interface";
 import Tesseract from "tesseract.js";
-import { extractAadhaarData } from "../../utils/textExtractor.util";
-import { AppError } from "../../shared/errors/http-error";
+import { extractAadhaarData } from "../utils/textExtractor.util";
+import { AppError } from "../shared/errors/http-error";
 
 @injectable()
 export class AdhaarService implements IAdhaarService {

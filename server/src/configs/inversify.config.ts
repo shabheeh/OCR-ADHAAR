@@ -1,14 +1,14 @@
 import { Container } from "inversify";
 import { Model } from "mongoose";
-import { IAdhaar } from "../core/domain/adhaar.entity.interface";
+import { IAdhaar } from "../models/adhaar/adhaar.entity.interface";
 import TYPES from "../shared/types/inversifyjs.types";
-import { AdhaarModel } from "../core/domain/adhaar.entity";
-import { IAdhaarRepository } from "../core/infrastructure/adhaar.repository.interface";
-import { AdhaarRepository } from "../core/infrastructure/adhaar.repository";
-import { IAdhaarService } from "../core/application/adhaar.service.interface";
-import { AdhaarService } from "../core/application/adhaar.service";
-import { IAdhaarController } from "../interfaces/controllers/adhaar.controller.interface";
-import { AdhaarController } from "../interfaces/controllers/adhaar.controller";
+import { AdhaarModel } from "../models/adhaar.entity";
+import { IAdhaarRepository } from "../repositories/adhaar.repository.interface";
+import { AdhaarRepository } from "../repositories/adhaar.repository";
+import { IAdhaarService } from "../services/adhaar.service.interface";
+import { AdhaarService } from "../services/adhaar.service";
+import { IAdhaarController } from "../controllers/adhaar.controller.interface";
+import { AdhaarController } from "../controllers/adhaar.controller";
 
 export const container = new Container();
 

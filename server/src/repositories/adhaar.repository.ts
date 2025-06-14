@@ -1,8 +1,8 @@
 import { inject, injectable } from "inversify";
-import TYPES from "../../shared/types/inversifyjs.types";
+import TYPES from "../shared/types/inversifyjs.types";
 import { IAdhaarRepository } from "./adhaar.repository.interface";
 import { Model } from "mongoose";
-import { IAdhaar } from "../domain/adhaar.entity.interface";
+import { IAdhaar } from "../models/adhaar/adhaar.entity.interface";
 
 @injectable()
 export class AdhaarRepository implements IAdhaarRepository {

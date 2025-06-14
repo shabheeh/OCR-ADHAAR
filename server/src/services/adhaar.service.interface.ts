@@ -1,4 +1,4 @@
-import { IAdhaar } from "../domain/adhaar.entity.interface";
+import { IAdhaar } from "../models/adhaar/adhaar.entity.interface";
 
 export interface IAdhaarService {
   processAdhaar(

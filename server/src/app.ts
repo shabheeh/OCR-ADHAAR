@@ -1,9 +1,9 @@
 import express from "express";
-import adhaarRouter from "./interfaces/routes/adhaar.routes";
-import { httpLogger } from "./interfaces/middlewares/logger.middleware";
+import adhaarRouter from "./routes/adhaar.routes";
+import { httpLogger } from "./middlewares/logger.middleware";
 import connectDB from "./configs/db.config";
 import cors from "cors";
-import { errorHandler } from "./interfaces/middlewares/error.middleware";
+import { errorHandler } from "./middlewares/error.middleware";
 
 export const app = express();
 
@@ -16,6 +16,8 @@ app.use(
   cors({
     origin: CLIENT_URL,
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST"],
   })
 );
 

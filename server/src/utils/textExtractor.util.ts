@@ -1,4 +1,4 @@
-import { IAdhaar } from "../core/domain/adhaar.entity.interface";
+import { IAdhaar } from "../models/adhaar/adhaar.entity.interface";
 
 export const extractAadhaarData = (ocrText: string): IAdhaar => {
   const lines = ocrText

@@ -1,10 +1,10 @@
 import { inject, injectable } from "inversify";
 import { IAdhaarController } from "./adhaar.controller.interface";
-import TYPES from "../../shared/types/inversifyjs.types";
+import TYPES from "../shared/types/inversifyjs.types";
 import { Request, Response, NextFunction } from "express";
-import { ValidationError } from "../../shared/errors/http-error";
-import { IAdhaarService } from "../../core/application/adhaar.service.interface";
-import { HttpStatusCode } from "../../shared/constants/httpStatusCodes";
+import { ValidationError } from "../shared/errors/http-error";
+import { IAdhaarService } from "../services/adhaar.service.interface";
+import { HttpStatusCode } from "../shared/constants/httpStatusCodes";
 
 @injectable()
 export class AdhaarController implements IAdhaarController {
