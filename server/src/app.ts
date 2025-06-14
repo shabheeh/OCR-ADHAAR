@@ -20,7 +20,7 @@ app.use(
     methods: ["GET", "POST"],
   })
 );
-app.options("/*", cors({ origin: CLIENT_URL, credentials: true }));
+// app.options("/*", cors({ origin: CLIENT_URL, credentials: true }));
 
 connectDB();
 
