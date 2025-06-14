@@ -1,20 +1,6 @@
 import multer from "multer";
-import fs from "fs";
 
-const tempDir = "/tmp";
-if (!fs.existsSync(tempDir)) {
-  fs.mkdirSync(tempDir);
-}
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, tempDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = Date.now() + "-" + file.originalname;
-    cb(null, uniqueName);
-  },
-});
+const storage = multer.memoryStorage();
 
 const upload = multer({
   storage,
