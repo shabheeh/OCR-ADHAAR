@@ -18,23 +18,43 @@ export class AdhaarService implements IAdhaarService {
     backFile: Express.Multer.File,
     systemId: string
   ): Promise<IAdhaar> => {
-    const [front, back] = await Promise.all([
-      Tesseract.recognize(frontFile.buffer, "eng"),
-      Tesseract.recognize(backFile.buffer, "eng"),
-    ]);
+    try {
+      const worker = await Tesseract.createWorker("eng", 1, {
+        logger: (m) => console.log(m),
+      });
 
-    const ocrText = front.data.text.concat(back.data.text);
+      await worker.setParameters({
+        tessedit_pageseg_mode: Tesseract.PSM.SINGLE_BLOCK,
+        tessedit_ocr_engine_mode: Tesseract.OEM.LSTM_ONLY, 
+      });
 
-    const adhaarDetails = extractAadhaarData(ocrText);
-    adhaarDetails.systemId = systemId;
+      console.log("Starting OCR processing...");
+      const startTime = Date.now();
 
-    const adhaarCreated = await this.adhaarRepo.create(adhaarDetails);
+      const [front, back] = await Promise.all([
+        worker.recognize(frontFile.buffer),
+        worker.recognize(backFile.buffer),
+      ]);
 
-    if (!adhaarCreated) {
-      throw new AppError("Failed to create adhaar details");
+      console.log(`OCR completed in ${Date.now() - startTime}ms`);
+
+      await worker.terminate();
+
+      const ocrText = front.data.text.concat(back.data.text);
+      const adhaarDetails = extractAadhaarData(ocrText);
+      adhaarDetails.systemId = systemId;
+
+      const adhaarCreated = await this.adhaarRepo.create(adhaarDetails);
+
+      if (!adhaarCreated) {
+        throw new AppError("Failed to create adhaar details");
+      }
+
+      return adhaarCreated;
+    } catch (error) {
+      console.error("OCR Error:", error);
+      throw error;
     }
-
-    return adhaarCreated;
   };
 
   getPreviousRecords = async (systemId: string): Promise<IAdhaar[]> => {
