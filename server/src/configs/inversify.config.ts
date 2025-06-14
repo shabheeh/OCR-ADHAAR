@@ -2,7 +2,7 @@ import { Container } from "inversify";
 import { Model } from "mongoose";
 import { IAdhaar } from "../models/adhaar/adhaar.entity.interface";
 import TYPES from "../shared/types/inversifyjs.types";
-import { AdhaarModel } from "../models/adhaar.entity";
+import { AdhaarModel } from "../models/adhaar/adhaar.entity";
 import { IAdhaarRepository } from "../repositories/adhaar.repository.interface";
 import { AdhaarRepository } from "../repositories/adhaar.repository";
 import { IAdhaarService } from "../services/adhaar.service.interface";
